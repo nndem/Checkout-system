@@ -16,7 +16,7 @@ class Rules:
                 'count': 3,
                 'cost': 75,
             },
-            'action': self.get_discount_for_type_a
+            'action': self.get_discounted_price_for_type_a
         }
 
         self.condition_type_b = {
@@ -25,25 +25,25 @@ class Rules:
                 'count': 2,
                 'cost': 35
             },
-            'action': self.get_discount_for_type_b
+            'action': self.get_discounted_price_for_type_b
         }
 
         self.condition_type_c = {
             'type': 'C',
-            'action': self.get_discount_for_type_c
+            'action': self.get_discounted_price_for_type_c
         }
 
         self.condition_type_d = {
             'type': 'D',
-            'action': self.get_discount_for_type_d
+            'action': self.get_discounted_price_for_type_d
         }
 
         self.condition_type_bonus = {
             'type': 'bonus',
-            'action': self.get_discount_for_type_bonus
+            'action': self.get_discounted_price_for_type_bonus
             }
 
-    def get_discount_for_type_a(self):
+    def get_discounted_price_for_type_a(self):
         try:
             self.items_counter['A']
         except KeyError:
@@ -57,7 +57,7 @@ class Rules:
                              amount_without_discount * initial_costs['A'])
         return self.new_cost
 
-    def get_discount_for_type_b(self):
+    def get_discounted_price_for_type_b(self):
         try:
             self.items_counter['B']
         except KeyError:
@@ -71,7 +71,7 @@ class Rules:
                              amount_without_discount * initial_costs['B'])
         return self.new_cost
 
-    def get_discount_for_type_c(self):
+    def get_discounted_price_for_type_c(self):
         try:
             self.items_counter['C']
         except KeyError:
@@ -81,7 +81,7 @@ class Rules:
                              initial_costs['C'])
         return self.new_cost
 
-    def get_discount_for_type_d(self):
+    def get_discounted_price_for_type_d(self):
         try:
             self.items_counter['D']
         except KeyError:
@@ -91,8 +91,10 @@ class Rules:
                             * initial_costs['D']
         return self.new_cost
 
-    def get_discount_for_type_bonus(self):
-        return self.new_cost if self.new_cost < 150 else self.new_cost - 20
+    def get_discounted_price_for_type_bonus(self):
+        print('price before bonus ', self.new_cost)
+        self.new_cost = self.new_cost if self.new_cost < 150 else self.new_cost - 20
+        return self.new_cost
 
     def get_discount_to_items(self):
         self.condition_type_a['action']()
@@ -103,7 +105,7 @@ class Rules:
 
 
 def accept_discount():
-    rules = Rules(items_counter={'A': 3, 'C': 1, 'D': 1})
+    rules = Rules(items_counter={'A': 3, 'B': 2, 'C': 0, 'D': 0})
     return rules
 
 
