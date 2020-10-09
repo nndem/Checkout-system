@@ -44,3 +44,7 @@ class TestRules(unittest.TestCase):
         co.scan(Entity('A'))
         co.scan(Entity('A'))
         self.assertEqual(co.total, 140)
+
+
+if __name__ == '__main__':
+    unittest.main()
